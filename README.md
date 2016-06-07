@@ -14,7 +14,7 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 
 ### Pulling plot data from MySQL:
 
-```
+```php
 $zc = new ZC("myChart");
 $zc->connect($host,$port,$uName,$pswd,$db);
 $data = $zc->query($mySqlQuery, true);
@@ -35,7 +35,7 @@ $zc->closeConnection();
 
 ### Plotting data without a MySQL database:
 
-```
+```php
 $zc = new ZC("myChart");
 $zc->setSeriesData([1,4,2,6,3]);
 $zc->render();
@@ -123,179 +123,195 @@ There are three levels of usability for this wrapper:
 ## Documentation
 
 <a id="ZC"></a>
-### ZC (elemId, chartType`opt`, width`opt`, height`opt`, theme`opt`) `Contructor`
+### ZC ( elemId [,chartType="area" [,theme="light" [,width="100%" [,height="400"]]]] ) `Contructor`
 
 **Default Behavior:**
 This method is overloaded to accept: 1, 2, 3, 4, or 5 arguments. Argument order matters. See examples below.
 
 **Examples:**
 
-```
+```php
 $zc = new ZC("chartDiv");
 $zc = new ZC("chartDiv", "line");
 $zc = new ZC("chartDiv", "line", "dark");
 $zc = new ZC("chartDiv", "line", "dark", "600");
 $zc = new ZC("chartDiv", "line", "dark", "600", "400");
+$zc = new ZC("chartDiv", null, "dark");
+$zc = new ZC("chartDiv", "bar", null, 600, 400);
 ```
 
-*NOTE: The first argument is required to render your chart properly. If this argument is omitted, then the chart will attempt to render on an html element with an id of "myChart" by default.*
+*NOTE: The first argument is required to render your chart properly. This first argument corresponds to the id of the html element you wish to put your chart into.*
 
 ---
 <a id="render"></a>
-### render () `Level 1`
+### render ( ) `Level 1`
 Renders the chart to the html element specified from the constructor.<br>
 
 **Example:**
 
-```
+```php
 $zc->render();
 ```
 
 ---
+<a id="getRenderScript"></a>
+### getRenderScript ( ) `Level 1`
+This function returns the text that would be printed by the render function.
+
+**Example:**
+
+```php
+$chart1Script = $zc->getRenderScript();// This stores the script, to be printed later
+echo $chart1Script;// This will render the chart
+```
+
+---
 <a id="connect"></a>
-### connect (host, port, username, pswd, db) `Level 1)`
+### connect ( host, port, username, pswd, db ) `Level 1`
 
 Establishes a connection to your MySQL database.
 
 **Example:**
 
-```
+```php
 $zc->connect("127.0.0.1","8889","root","root","mydb");
 ```
 
 ---
 <a id="closeConnection"></a>
-### closeConnection () `Level 1`
+### closeConnection ( ) `Level 1`
 Closes the connection to your MySQL database.
 
 **Example:**
 
-```
+```php
 $zc->closeConnection();
 ```
 
 ---
 <a id="query"></a>
-### query (sqlQuery, scaleXLabelsFlag) `Level 1`
+### query ( sqlQuery, scaleXLabelsFlag ) `Level 1`
 Queries your MySQL database with your supplied query string. ***Note:*** *Accepts a second argument that expects a boolean representing whether or not to treat the first field returned from your SQL query as the x-axis scale labels.*
 
 **Example:**
 
-```
+```php
 $queryStr = "SELECT timestamp, unitsSold, expected, anotherMetric FROM feed_data";
 $zc->query($queryStr, true);
 ```
 
 In the code snippet above, we set the scaleXLabelsFlag to true because our SQL query returns 'timestamps' data that we wish to set as our x-axis scale labels. If we did not want to explicitly set the x-axis labels then the code could look like this:
 
-```
+```php
 $queryStr = "SELECT unitsSold, expected, anotherMetric FROM feed_data";
 $zc->query($queryStr, false);
 ```
 
 ---
 <a id="getFieldNames"></a>
-### getFieldNames () `Level 1`
+### getFieldNames ( ) `Level 1`
 Get the MySQL field names returned from the function query above.
 
 **Example:**
 
-```
+```php
 $fieldNames = $zc->getFieldNames();
 ```
 
 ---
 <a id="setTitle"></a>
-### setTitle (theChartTitle) `Level 1`
+### setTitle ( theChartTitle ) `Level 1`
 Sets the chart title. Expected arg: String.
 
 **Example:**
 
-```
+```php
 $zc->setTitle("Sandwiches Consumed");
 ```
 
 ---
 <a id="setSubtitle"></a>
-### setSubtitle (theSubtitle) `Level 1`
+### setSubtitle ( theSubtitle ) `Level 1`
 Sets the chart subtitle. Expected arg: String.
 
 **Example:**
 
-```
+```php
 $zc->setSubtitle("March 1 thru March 31, 2016");
 ```
 
 ---
 <a id="setLegendTitle"></a>
-### setLegendTitle (theLegendTitle) `Level 1`
+### setLegendTitle ( theLegendTitle ) `Level 1`
 Sets the chart legend's title. Expected arg: String.
 
 **Example:**
 
-```
+```php
 $zc->setLegendTitle("Sandwich Types");
 ```
 
 ---
 <a id="setScaleXTitle"></a>
-### setScaleXTitle (xAxisTitle) `Level 1`
+### setScaleXTitle ( xAxisTitle ) `Level 1`
 Sets the chart x-axis title.
 
 **Example:**
 
-```
+```php
 $zc->setScaleXTitle("Quantity");
 ```
 
 ---
 <a id="setScaleYTitle"></a>
-### setScaleYTitle (yAxisTitle) `Level 1`
+### setScaleYTitle ( yAxisTitle ) `Level 1`
 Sets the chart y-axis title.
 
 **Example:**
 
-```
+```php
 $zc->setScaleYTitle("Date");
 ```
 
 ---
 <a id="setScaleXLabels"></a>
-### setScaleXLabels (xAxisLabels) `Level 1`
+### setScaleXLabels ( xAxisLabels ) `Level 1`
 Sets the chart x-axis' scale values.
 
 **Example:**
 
-```
+```php
 $zc->setScaleXLabels(array("Mar 1", "Mar 2", "Mar 3));
 ```
 
 ---
 <a id="setScaleYLabels"></a>
-### setScaleYLabels (yAxisValueRange) `Level 1`
+### setScaleYLabels ( yAxisValueRange ) `Level 1`
 Sets the chart y-axis' scale value range and increment. 
 
 **Example:**
 
-```
+```php
 $zc->setScaleYLabels(array("0:10:100");
 ```
 
 ---
 <a id="setSeriesData"></a>
-### setSeriesData (seriesIndex *`opt`*, plotDataArray) ```Level 1```
+### setSeriesData ( [,seriesIndex], plotDataArray ) ```Level 1```
 Sets the chart plot data. ie) The data to be plotted.
+seriesIndex is an optional parameter. If ommited, the function will assume plotDataArray contain 
+all the data for all the series.
 
 **Examples:**
 
-```
+```php
 $zc->setSeriesData(0, [5,7,11]);
 $zc->setSeriesData([[3,7,1], [20,32,37], [1,25,48]]);
 ```
 
 ---
 <a id="setSeriesText"></a>
-### setSeriesText (seriesIndex *`opt`*, seriesText) `Level 1`
+### setSeriesText ( [,seriesIndex], seriesText ) `Level 1`
 Sets the chart data labels. ie) Used for tooltips, valueBox, etc..
 There are two ways to overload this function.
 
@@ -305,49 +321,49 @@ There are two ways to overload this function.
 
 **Examples:**
 
-```
+```php
 $zc->setSeriesText(["BLT","Tuna","Club"]);// applies "BLT" to series[0], "Tuna" to series[1],..
 $zc->setSeriesText(0, "BLT");// applies "BLT" to series[0]
 ```
 
 ---
 <a id="setChartType"></a>
-### setChartType (theType) `Level 1`
+### setChartType ( theType ) `Level 1`
 Sets the chart type. ie) Area, Bar, Line, Pie, etc..
 
 **Example:**
 
-```
+```php
 $zc->setChartType("line");
 ```
 
 ---
 <a id="setChartWidth"></a>
-### setChartWidth (chartWidth) `Level 1`
+### setChartWidth ( chartWidth ) `Level 1`
 Sets the chart width. ***Note:*** *Defaults to 100%.*
 
 **Examples:**
 
-```
+```php
 $zc->setChartWidth("600");// in pixels
 $zc->setChartWidth("100%");
 ```
 
 ---
 <a id="setChartHeight"></a>
-### setChartHeight (chartHeight) `Level 1`
+### setChartHeight ( chartHeight ) `Level 1`
 Sets the chart height. ***Note:*** *Defaults to 400px.*
 
 **Examples:**
 
-```
+```php
 $zc->setChartHeight("400");
 $zc->setChartHeight("50%");
 ```
 
 ---
 <a id="setChartTheme"></a>
-### setChartTheme (chartTheme) `Level 1`
+### setChartTheme ( chartTheme ) `Level 1`
 Sets the chart color theme. ie) light, dark, classic
 
 **Limited Options:**
@@ -355,281 +371,281 @@ Sets the chart color theme. ie) light, dark, classic
 
 **Example:**
 
-```
+```php
 $zc->setChartTheme("dark");
 ```
 
 ---
 <a id="enableScaleXZooming"></a>
-### enableScaleXZooming () `Level 1`
+### enableScaleXZooming ( ) `Level 1`
 Turn on chart zooming on x-axis.
 
 **Example:**
 
-```
+```php
 $zc->enableScaleXZooming();
 ```
 
 ---
 <a id="enableScaleYZooming"></a>
-### enableScaleYZooming () `Level 1`
+### enableScaleYZooming ( ) `Level 1`
 Turn on chart zooming on y-axis.
 
 **Example:**
 
-```
+```php
 $zc->enableScaleYZooming();
 ```
 
 ---
 <a id="enableCrosshairX"></a>
-### enableCrosshairX () `Level 1`
+### enableCrosshairX ( ) `Level 1`
 Turn on chart crosshair guide on x-axis. ***NOTE:*** *On by default.*
 
 **Example:**
 
-```
+```php
 $zc->enableCrosshairX();
 ```
 
 ---
 <a id="enableCrosshairY"></a>
-### enableCrosshairY () `Level 1`
+### enableCrosshairY ( ) `Level 1`
 Turn on chart crosshair guide on y-axis.
 
 **Example:**
 
-```
+```php
 $zc->enableCrosshairY();
 ```
 
 ---
 <a id="enableTooltip"></a>
-### enableTooltip () `Level 1`
+### enableTooltip ( ) `Level 1`
 Turn on chart tooltip.
 
 **Example:**
 
-```
+```php
 $zc->enableTooltip();
 ```
 
 ---
 <a id="enableValueBox"></a>
-### enableValueBox () `Level 1`
+### enableValueBox ( ) `Level 1`
 Turn on chart valueBox.
 
 **Example:**
 
-```
+```php
 $zc->enableValueBox();
 ```
 
 ---
 <a id="enablePreview"></a>
-### enablePreview () `Level 1`
+### enablePreview ( ) `Level 1`
 Turn on chart preview area.
 
 **Example:**
 
-```
+```php
 $zc->enablePreview();
 ```
 
 ---
 <a id="disableScaleXZooming"></a>
-### disableScaleXZooming () `Level 1`
+### disableScaleXZooming ( ) `Level 1`
 Turn off chart zooming on x-axis.
 
 **Example:**
 
-```
+```php
 $zc->disableScaleXZooming();
 ```
 
 ---
 <a id="disableScaleYZooming"></a>
-### disableScaleYZooming () `Level 1`
+### disableScaleYZooming ( ) `Level 1`
 Turn off chart zooming on y-axis.
 
 **Example:**
 
-```
+```php
 $zc->disableScaleYZooming();
 ```
 
 ---
 <a id="disableCrosshairX"></a>
-### disableCrosshairX () `Level 1`
+### disableCrosshairX ( ) `Level 1`
 Turn off chart crosshair on x-axis.
 
 **Example:**
 
-```
+```php
 $zc->disableCrosshairX();
 ```
 ---
 <a id="disableCrosshairY"></a>
-### disableCrosshairY () `Level 1`
+### disableCrosshairY ( ) `Level 1`
 Turn off chart crosshair on y-axis.
 
 **Example:**
 
-```
+```php
 $zc->disableCrosshairY();
 ```
 
 ---
 <a id="disableTooltip"></a>
-### disableTooltip () `Level 1`
+### disableTooltip ( ) `Level 1`
 Turn off chart tooltip.
 
 **Example:**
 
-```
+```php
 $zc->disableTooltip();
 ```
 
 ---
 <a id="disableValueBox"></a>
-### disableValueBox () `Level 1`
+### disableValueBox ( ) `Level 1`
 Turn off chart valueBox.
 
 **Example:**
 
-```
+```php
 $zc->disableValueBox();
 ```
 
 ---
 <a id="disablePreview"></a>
-### disablePreview () `Level 1`
+### disablePreview ( ) `Level 1`
 Turn off chart preview area.
 
 **Example:**
 
-```
+```php
 $zc->disablePreview();
 ```
 
 ---
 <a id="getTitle"></a>
-### getTitle () `Level 1`
+### getTitle ( ) `Level 1`
 Get the chart title.
 
 **Example:**
 
-```
+```php
 $chartTitle = $zc->getTitle();
 ```
 
 ---
 <a id="getSubtitle"></a>
-### getSubtitle () `Level 1`
+### getSubtitle ( ) `Level 1`
 Get the chart subtitle.
 
 **Example:**
 
-```
+```php
 $chartSubtitle = $zc->getSubtitle();
 ```
 
 ---
 <a id="getLegendTitle"></a>
-### getLegendTitle () `Level 1`
+### getLegendTitle ( ) `Level 1`
 Get the chart legend title.
 
 **Example:**
 
-```
+```php
 $legendTitle = $zc->getLegendTitle();
 ```
 
 ---
 <a id="getConfig"></a>
-### getConfig () `Level 1`
+### getConfig ( ) `Level 1`
 Get the chart JSON configuration.
 
 **Example:**
 
-```
+```php
 $config = $zc->getConfig();
 ```
 
 ---
 <a id="getScaleXTitle"></a>
-### getScaleXTitle () `Level 1`
+### getScaleXTitle ( ) `Level 1`
 Get the chart x-axis title.
 
 **Example:**
 
-```
+```php
 $xAxisTitle = $zc->getScaleXTitle();
 ```
 
 ---
 <a id="getScaleYTitle"></a>
-### getScaleYTitle () `Level 1`
+### getScaleYTitle ( ) `Level 1`
 Get the chart y-axis title.
 
 **Example:**
 
-```
+```php
 $yAxisTitle = $zc->getScaleYTitle();
 ```
 
 ---
 <a id="getScaleXLabels"></a>
-### getScaleXLabels () `Level 1`
+### getScaleXLabels ( ) `Level 1`
 Get the chart x-axis scale values.
 
 **Example:**
 
-```
+```php
 $xAxisLabels = $zc->getScaleXLabels();
 ```
 
 ---
 <a id="getScaleYLabels"></a>
-### getScaleYLabels () `Level 1`
+### getScaleYLabels ( ) `Level 1`
 Get the cahrt y-axis scale values.
 
 **Example:**
 
-```
+```php
 $yAxisLabels = $zc->getScaleYLabels();
 ```
 
 ---
 <a id="getSeriesData"></a>
-### getSeriesData () `Level 1`
+### getSeriesData ( ) `Level 1`
 Get the chart plot data/values.
 
 **Example:**
 
-```
+```php
 $plotValues = $zc->getSeriesData();
 ```
 
 ---
 <a id="getSeriesText"></a>
-### getSeriesText () `Level 1`
+### getSeriesText ( ) `Level 1`
 Get the chart plot data labels/texts.
 
 **Example:**
 
-```
+```php
 $plotSeriesText = $zc->getSeriesText();
 ```
 
 ---
 <a id="setConfig"></a>
-### setConfig () `Level 2`
+### setConfig ( ) `Level 2`
 This is a single function that accepts a string in the form of dot-syntax. This function allows you to set a value for a single chart property.<br>
 
 **Examples:**
 
-```
+```php
 $zc->setConfig("legend.header.background-color", "red");
 $zc->setConfig("series[1]", array(5,9,13,10,22,39));
 $zc->setConfig("series", [[1,2,3],[,10,15,20],[100,50,75]]);
@@ -639,12 +655,12 @@ This syntax is a close-derivative of ZingChart's JSON syntax except that it uses
 
 ---
 <a id="trapdoor"></a>
-### trapdoor () `Level 3`
+### trapdoor ( ) `Level 3`
 This is a single function that accepts a full-blown JSON string. This function allows you to set the entire chart's configuration with a single function call. This JSON string can be generated using standard PHP associative array syntax as well.<br>
 
 **Examples:**
 
-```
+```php
 $myConfig = array(
     "legend" => array(
         "header" => array(
@@ -671,7 +687,7 @@ $zc->trapdoor(json_encode($myConfig));
 ```
 Or you could pass in the JSON string like this:
 
-```
+```php
 $jsonString = <<< EOT
 {
     "legend":{
@@ -696,14 +712,14 @@ $jsonString = <<< EOT
 }
 EOT;
 
-$zc->drapdoor($jsonString);
+$zc->trapdoor($jsonString);
 ```
 One thing to note here is that if you are using the array method, then you must prepend your array with `json_encode(...)` in order to render the chart properly when you call the render method.
 
 Finished product:<br>
 The following four lines of code will produce an area chart that is 600x400 pixels with the light color theme rendered in the html element's id of 'myChart'.
 
-```
+```php
 $zc = new ZC("myChart", "area", "light", 600, 400);
 $zc.trapdoor(json_encode($myConfig));
 $zc.render();
