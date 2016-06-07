@@ -7,6 +7,7 @@ class ZC {
     private $theme;
     private $width;
     private $height;
+    private $fullscreen = false;
     private $config;
 
     private $data;
@@ -38,6 +39,7 @@ class ZC {
         $width = $this->width;
         $height = $this->height;
         $theme = $this->theme;
+        $fullscreen = $this->fullscreen;
 
         $jsonConfig = json_encode($this->config);
         $gold = <<< EOT
@@ -48,6 +50,7 @@ class ZC {
           theme: "$theme",
           width: "$width",
           height: "$height",
+          fullscreen: $fullscreen,
           data: $jsonConfig
       }
   );
@@ -219,6 +222,10 @@ EOT;
     public function setChartTheme($theme) {
     		$this->theme = $theme;
     }
+    public function setFullscreen() {
+        $this->fullscreen = !$this->fullscreen;
+    }
+
 
     public function enableScaleXZooming() {
     		$this->config['scale-x']['zooming'] = 'true';
