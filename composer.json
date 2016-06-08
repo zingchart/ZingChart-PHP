@@ -1,0 +1,20 @@
+{
+    "name": "zingchart/php_wrapper",
+    "description": "PHP wrapper for ZingChart",
+    "authors": [
+        {
+            "name": "ZingChart",
+            "email": "support@zingchart.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/zingchart/ZingChart-PHP"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^5.3.3"
+    }
+}
