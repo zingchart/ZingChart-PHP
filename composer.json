@@ -16,5 +16,10 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^5.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZingChart\\PHPWrapper\\": "src/"
+        }
     }
 }

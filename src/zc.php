@@ -1,4 +1,7 @@
 <?php
+
+namespace ZingChart\PHPWrapper;
+
 class ZC {
     private $mysqli;
 
