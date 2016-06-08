@@ -2,10 +2,12 @@
 
 namespace ZingChart\PHPWrapper;
 
+use mysqli;
+
 class ZC {
     private $mysqli;
 
-    private $chartId = "";
+    private $chartId;
     private $chartType;
     private $theme;
     private $width;
@@ -373,9 +375,7 @@ EOT;
         }
     }
 
-    /**
-     * Process the array with tail recursion.
-     */
+    //Process the array with tail recursion.
     private function buildArray($propertyChain, $value) {
         $key = array_shift($propertyChain);
 
@@ -388,4 +388,3 @@ EOT;
         return array($key => $this->buildArray($propertyChain, $value));
     }
 }
-?>
