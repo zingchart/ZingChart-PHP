@@ -4,11 +4,19 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 
 ## Initial Setup
 
+### Manual
+
 1.	Download this repo by clicking on the green "Clone or download" button near the top of this page.
 2. Click on "Download Zip" option to begin the download.
 3. Copy file "zc.php" into your project's source directory.
-4. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`
-5. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`
+4. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`.
+5. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
+
+### Composer
+1. Download this package with Composer: `composer require zingchart/php_wrapper`.
+2. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendow/autoload.php;`.
+3. Reference this library in your code: `use ZingChart\PHPWrapper\ZC;`.
+
 
 ## Quick Start
 

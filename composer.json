@@ -1,12 +1,16 @@
 {
     "name": "zingchart/php_wrapper",
     "description": "PHP wrapper for ZingChart",
+    "homepage": "https://www.zingchart.com",
+    "type": "library",
+    "keywords": [ "ZingChart", "charts", "graphs" ],
     "authors": [
         {
             "name": "ZingChart",
             "email": "support@zingchart.com"
         }
     ],
+    "license": "MIT",
     "repositories": [
         {
             "type": "vcs",
@@ -15,7 +19,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^5.3.3"
+        "php": "^5.3"
     },
     "autoload": {
         "psr-4": {
