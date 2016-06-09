@@ -14,7 +14,7 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 
 ### Composer
 1. Download this package with Composer: `composer require zingchart/php_wrapper`.
-2. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendow/autoload.php;`.
+2. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendor/autoload.php;`.
 3. Reference this library in your code: `use ZingChart\PHPWrapper\ZC;`.
 
 
