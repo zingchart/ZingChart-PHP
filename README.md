@@ -13,6 +13,8 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 5. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
 
 ### Composer
+We are on Packagist [here](https://packagist.org/packages/zingchart/php_wrapper).
+
 1. Download this package with Composer: `composer require zingchart/php_wrapper`.
 2. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendor/autoload.php;`.
 3. Reference this library in your code: `use ZingChart\PHPWrapper\ZC;`.
