@@ -666,7 +666,10 @@ This syntax is a close-derivative of ZingChart's JSON syntax except that it uses
 ---
 <a id="trapdoor"></a>
 ### trapdoor ( ) `Level 3`
-This is a single function that accepts a full-blown JSON string. This function allows you to set the entire chart's configuration with a single function call. This JSON string can be generated using standard PHP associative array syntax as well.<br>
+This is a single function that accepts a full-blown JSON string. This function allows you to set the entire chart's configuration with a single function call. This JSON string can be generated using standard PHP associative array syntax as well.
+
+### Note: Using the trapdoor will overwrite any previously set chart configurations for that object.
+For example, if you set $zc->setLegendTitle("Cool Title") and later use zc->trapdoor("series":[{"values": [1,2,3]}, {"values":[22,23,27]}) then the legend title will be destroyed.
 
 **Examples:**
 
