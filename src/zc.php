@@ -16,6 +16,7 @@ class ZC {
     private $config;
     private $data;
     private $fieldNames = array();
+    private $xAxisTitle = "";
 
     public function __construct($id, $cType, $theme, $width, $height) {
         $this->chartId =   $id;
@@ -94,7 +95,9 @@ EOT;
             if ($scaleXFlag) {
                 $count = 0;
                 foreach ($info as $f) {
-                    if ($count == 0) {}
+                    if ($count == 0) {
+                    	  $this->xAxisTitle = $f->name;
+                    }
                     else {
                         $this->fieldNames[] = $f->name;
                     }
@@ -366,8 +369,8 @@ EOT;
     // ###################################### HELPER FUNCTIONS ######################################
     private function autoAxisTitles($scaleXFlag=false, $xLabels=array()) {
         if ($scaleXFlag) {
-            $this->config['scale-x']['label']['text'] = $this->fieldNames[0];
-            $this->config['scale-y']['label']['text'] = $this->fieldNames[1];
+            $this->config['scale-x']['label']['text'] = $this->xAxisTitle;//$this->fieldNames[0];
+            $this->config['scale-y']['label']['text'] = $this->fieldNames[0];
             $this->config['scale-x']['labels'] = $xLabels;
         }
         else {
