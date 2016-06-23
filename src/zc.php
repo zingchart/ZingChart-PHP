@@ -1,13 +1,8 @@
 <?php
-
-namespace ZingChart\PHPWrapper;
-
-use mysqli;
-
 class ZC {
     private $mysqli;
 
-    private $chartId;
+    private $chartId = "";
     private $chartType;
     private $theme;
     private $width;
@@ -96,7 +91,7 @@ EOT;
                 $count = 0;
                 foreach ($info as $f) {
                     if ($count == 0) {
-                    	  $this->xAxisTitle = $f->name;
+                        $this->xAxisTitle = $f->name;
                     }
                     else {
                         $this->fieldNames[] = $f->name;
@@ -144,7 +139,7 @@ EOT;
             
             $this->data = $seriesData;//$response;
 
-            // Defaulting to set X and Y axis titles according to data retreived from MySQL database
+            // Defaulting to set X and Y axis titles according to data retrieved from MySQL database
             $this->autoAxisTitles($scaleXFlag, $xData);
 
             return $seriesData;
@@ -157,40 +152,47 @@ EOT;
     }
 
     public function setTitle($title) {
-        $this->config['title']['text'] = $title;
-        $this->config['title']['adjust-layout'] = true;
+        $this->setConfig('title.text', $title);
+
+        if (!array_key_exists('adjust-layout', $this->config['title'])) {
+            $this->setConfig('title.adjust-layout', true);
+        }
 
         // defaulting to dynamic margin-top 0% if not previously specified. It just looks better this way.
-        $this->config['plotarea']['margin-top'] = array_key_exists('margin-top', $this->config['plotarea']) ? $this->config['plotarea']['margin-top'] : '0%';
+        if (!array_key_exists('margin-top', $this->config['plotarea'])) {
+            $this->setConfig('plotarea.margin-top', '0%');
+        }
     }
     public function setSubtitle($subtitle) {
-        $this->config['subtitle']['text'] = $subtitle;
-        $this->config['subtitle']['adjust-layout'] = true;
+        $this->setConfig('subtitle.text', $subtitle);
+        if (!array_key_exists('subtitle', $this->config['adjust-layout'])) {
+            $this->setConfig('subtitle.adjust-layout', true);
+        }
     }
     public function setLegendTitle($title) {
-        $this->config['legend']['header']['text'] = $title;
+        $this->setConfig('legend.header.text', $title);
     }
     public function setScaleXTitle($title) {
-        $this->config['scale-x']['label']['text'] = $title;
+        $this->setConfig('scale-x.label.text', $title);
     }
     public function setScaleYTitle($title) {
-        $this->config['scale-y']['label']['text'] = $title;
+        $this->setConfig('scale-y.label.text', $title);
     }
     public function setScaleXLabels($labelsArray) {
-        $this->config['scale-x']['labels'] = $labelsArray;
+        $this->setConfig('scale-x.labels', $labelsArray);
     }
-		public function setScaleYLabels($yAxisRange) { // "0:100:5"
-        $this->config['scale-y']['values'] = "$yAxisRange";
+    public function setScaleYLabels($yAxisRange) { // "0:100:5"
+        $this->setConfig('scale-y.values', $yAxisRange);
     }
     public function setSeriesData() {
         $numArgs = func_num_args();
         if ($numArgs == 1) {
             for ($j = 0; $j < count(func_get_arg(0)); $j++) {
-                $this->config['series'][$j]['values'] = func_get_arg(0)[$j];
+                $this->setConfig('series['.$j.'].values', func_get_arg(0)[$j]);
             }
         }
         else if ($numArgs == 2) {
-            $this->config['series'][func_get_arg(0)]['values'] = func_get_arg(1);
+            $this->setConfig('series['.func_get_arg(0).'].values', func_get_arg(1));
         }
         else {
             echo "<br><h1>Invalid number of arguments: $numArgs </h1>";
@@ -200,11 +202,13 @@ EOT;
         $numArgs = func_num_args();
         if ($numArgs == 1) {
             for($i = 0; $i < count(func_get_arg(0)); $i++) {
-                $this->config['series'][$i]['text'] = func_get_arg(0)[$i];
+                $this->setConfig('series['.$j.'].text', func_get_arg(0)[$i]);
+                //$this->config['series'][$i]['text'] = func_get_arg(0)[$i];
             }
         }
         else if ($numArgs == 2) {
-            $this->config['series'][func_get_arg(0)]['text'] = func_get_arg(1);
+            $this->setConfig('series['.func_get_arg(0).'].text', func_get_arg(1));
+            //$this->config['series'][func_get_arg(0)]['text'] = func_get_arg(1);
         }
         else {
             echo "<br><h1>Invalid number of arguments: $numArgs </h1>";
@@ -213,7 +217,7 @@ EOT;
 
     public function setChartType($type) {
         $this->chartType = $type;
-        $this->config['type'] = $type;
+        $this->setConfig('type', $type);
     }
     public function setChartWidth($width) {
         $this->width = $width;
@@ -229,50 +233,43 @@ EOT;
     }
 
     public function enableScaleXZooming() {
-        $this->config['scale-x']['zooming'] = 'true';
-  	}
-  	public function enableScaleYZooming() {
-        $this->config['scale-y']['zooming'] = 'true';
+        $this->setConfig('scale-x.zooming', true);
+    }
+    public function enableScaleYZooming() {
+        $this->setConfig('scale-y.zooming', true);
     }
     public function enableCrosshairX() {
-        $this->config['crosshair-x'] = array("visible" => "true");
+        $this->setConfig('crosshair-x.visible', true);
     }
     public function enableCrosshairY() {
-        $this->config['crosshair-y'] = array();
+        $this->setConfig('crosshair-y.visible', true);
     }
     public function enableTooltip() {
-        $this->config['plot']['tooltip']['text'] = "%t, %v";
-        $this->config['plot']['tooltip']['visible'] = true;
+        $this->setConfig('plot.tooltip.text', '%t, %v');
+        $this->setConfig('plot.tooltip.visible', true);
     }
     public function enableValueBox() {
-        $this->config['plot']['value-box']['text'] = "%t, %v";
+        $this->setConfig('plot.value-box.text', '%t, %v');
     }
     public function enablePreview() {
-        $this->config['preview'] = array();
-        $this->config['preview']['adjust-layout'] = true;
+        $this->setConfig('preview.adjust-layout', true);
     }
 
 
     public function disableScaleXZooming() {
-        $this->config['scale-x']['zooming'] = 'false';
+        $this->setConfig('scale-x.zooming', false);
     }
     public function disableScaleYZooming() {
-        $this->config['scale-y']['zooming'] = 'false';
+        $this->setConfig('scale-y.zooming', false);
     }
     public function disableCrosshairX() {
-        $this->config['crosshair-x']['visible'] = false;
+        $this->setConfig('crosshair-x.visible', false);
     }
     public function disableCrosshairY() {
-        //$this->config['crosshair-y']['visible'] = 'false';
-        $newConfig = array();
-        foreach($this->config as $x => $x_value) {
-            if ($x == 'crosshair-y') {}// skip over this. Do not add to newConfig
-            else $newConfig[$x] = $x_value;
-        }
-        $this->config = $newConfig;
+        $this->setConfig('crosshair-y.visible', false);
     }
     public function disableTooltip() {
-    		$this->config['plot']['tooltip']['visible'] = 'false';
+        $this->setConfig('plot.tooltip.visible', false);
     }
     public function disableValueBox() {
         $newConfig = array();
@@ -288,13 +285,7 @@ EOT;
         $this->config = $newConfig;
     }
     public function disablePreview() {
-        $newConfig = array();
-
-        foreach($this->config as $x => $x_value) {
-            if ($x == 'preview') {}// skip over this. Do not add to newConfig
-            else $newConfig[$x] = $x_value;
-        }
-        $this->config = $newConfig;
+        $this->setConfig('preview.visible', false);
     }
     
 
@@ -347,6 +338,8 @@ EOT;
         $indexStart = strpos($chain[0], "[");
         $indexEnd = strpos($chain[0], "]");
 
+        echo 'chain: '. json_encode($chain) . "<br>";
+
         if ($indexStart > -1) {
             $index = (substr($chain[0], $indexStart+1, ($indexEnd-$indexStart)+1))*1;
             $parentKey = substr($chain[0], 0, $indexStart);
@@ -369,16 +362,18 @@ EOT;
     // ###################################### HELPER FUNCTIONS ######################################
     private function autoAxisTitles($scaleXFlag=false, $xLabels=array()) {
         if ($scaleXFlag) {
-            $this->config['scale-x']['label']['text'] = $this->xAxisTitle;//$this->fieldNames[0];
-            $this->config['scale-y']['label']['text'] = $this->fieldNames[0];
-            $this->config['scale-x']['labels'] = $xLabels;
+            $this->setConfig('scale-x.label.text', $this->xAxisTitle);
+            $this->setConfig('scale-y.label.text', $this->fieldNames[0]);
+            $this->setConfig('scale-x.labels', $xLabels);
         }
         else {
-            $this->config['scale-y']['label']['text'] = $this->fieldNames[0];
+            $this->setConfig('scale-y.label.text', $this->fieldNames[0]);
         }
     }
 
-    //Process the array with tail recursion.
+    /**
+     * Process the array with tail recursion.
+     */
     private function buildArray($propertyChain, $value) {
         $key = array_shift($propertyChain);
 
@@ -391,3 +386,4 @@ EOT;
         return array($key => $this->buildArray($propertyChain, $value));
     }
 }
+?>

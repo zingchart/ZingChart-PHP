@@ -54,7 +54,7 @@ $zc->render();
 **Code Breakdown:<br>**
 
 1.	`$zc = new ZC("myChart");`<br>Instantiate a new instance of the ZC object with the id of the html elemet you wish to embed your chart in. For example, `<div id="myChart"></div>`.
-2. `$zc->setSeriesData([1,4,2,6,3]);`<br>Set the plot data with an array of values. You can even use an array of arrays to plot multiple series like this: `$zc->setSeriesData([[12,35,24],[3,9,7]);`
+2. `$zc->setSeriesData(0, [1,4,2,6,3]);`<br>Set the plot data with an array of values. You can even use an array of arrays to plot multiple series like this: `$zc->setSeriesData([[12,35,24],[3,9,7]);`
 3. `$zc->render();`<br>Render your data as the default 'Area' chart type. If you wish to use a different chart type then simply set it either using another function call `$zc->setChartType("bar");` or via overloading the constructor `$zc = new ZC("myChart", "bar");`.
 
 ### Live Demos
@@ -657,8 +657,25 @@ This is a single function that accepts a string in the form of dot-syntax. This 
 
 ```php
 $zc->setConfig("legend.header.background-color", "red");
-$zc->setConfig("series[1]", array(5,9,13,10,22,39));
-$zc->setConfig("series", [[1,2,3],[,10,15,20],[100,50,75]]);
+$zc->setConfig("series[1].values", array(5,9,13,10,22,39));
+```
+
+You may also pass in an associative array to set multiple attributes from the given root property like this:
+
+```php
+$legendConfig = 
+array(
+    "header" => array(
+        "background-color" => "red"
+    ),
+    "marker" => array(
+        "border-color" => "orange",
+        "border-width" => "3px",
+        "shadow-angle" => "115"
+    )
+);
+
+$zc->setConfig("legend", $legendConfig);
 ```
 
 This syntax is a close-derivative of ZingChart's JSON syntax except that it uses dots to represent sub-object navigation.
