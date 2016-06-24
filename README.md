@@ -93,7 +93,8 @@ There are three levels of usability for this wrapper:
 	**[setChartType](#setChartType)**       - Sets the chart type. ie) Area, Bar, Line, Pie, etc..<br>
 	**[setChartWidth](#setChartWidth)**      - Sets the chart width. ***Note:*** *Defaults to 100%.*<br>
 	**[setChartHeight](#setChartHeight)**     - Sets the chart height. ***Note:*** *Defaults to 400px.*<br>
-	**[setChartTheme](#setChartTheme)**      - Sets the chart color theme. ie) light, dark, classic<br>
+	**[setChartTheme](#setChartTheme)**      - Sets the chart color theme. ie) light, dark, classic.<br>
+	**[setFullscreen](#setFullscreen)**	    - Sets the chart's width and height to fit the window.<br>
 	
 	**[enableScaleXZooming](#enableScaleXZooming)**  - Turn on chart zooming on x-axis.<br>
 	**[enableScaleYZooming](#enableScaleYZooming)**  - Turn on chart zooming on y-axis.<br>
@@ -386,6 +387,18 @@ $zc->setChartTheme("dark");
 ```
 
 ---
+<a id="setFullscreen"></a>
+### setFullscreen ( ) `Level 1`
+Toggles the chart to fit the window. Calling this method twice will disable fullscreen.
+
+**Example:**
+
+```php
+$zc->setFullscreen();
+```
+
+---
+
 <a id="enableScaleXZooming"></a>
 ### enableScaleXZooming ( ) `Level 1`
 Turn on chart zooming on x-axis.

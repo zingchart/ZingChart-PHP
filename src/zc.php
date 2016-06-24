@@ -181,10 +181,10 @@ EOT;
     public function setScaleXLabels($labelsArray) {
         $this->setConfig('scale-x.labels', $labelsArray);
     }
-    public function setScaleYLabels($yAxisRange) { // "0:100:5"
+		public function setScaleYLabels($yAxisRange) { // "0:100:5"
         $this->setConfig('scale-y.values', $yAxisRange);
-    }
-    public function setSeriesData() {
+  	}
+  	public function setSeriesData() {
         $numArgs = func_num_args();
         if ($numArgs == 1) {
             for ($j = 0; $j < count(func_get_arg(0)); $j++) {
@@ -202,7 +202,7 @@ EOT;
         $numArgs = func_num_args();
         if ($numArgs == 1) {
             for($i = 0; $i < count(func_get_arg(0)); $i++) {
-                $this->setConfig('series['.$j.'].text', func_get_arg(0)[$i]);
+                $this->setConfig('series['.$i.'].text', func_get_arg(0)[$i]);
                 //$this->config['series'][$i]['text'] = func_get_arg(0)[$i];
             }
         }
@@ -234,8 +234,8 @@ EOT;
 
     public function enableScaleXZooming() {
         $this->setConfig('scale-x.zooming', true);
-    }
-    public function enableScaleYZooming() {
+  	}
+  	public function enableScaleYZooming() {
         $this->setConfig('scale-y.zooming', true);
     }
     public function enableCrosshairX() {
@@ -338,8 +338,6 @@ EOT;
         $indexStart = strpos($chain[0], "[");
         $indexEnd = strpos($chain[0], "]");
 
-        echo 'chain: '. json_encode($chain) . "<br>";
-
         if ($indexStart > -1) {
             $index = (substr($chain[0], $indexStart+1, ($indexEnd-$indexStart)+1))*1;
             $parentKey = substr($chain[0], 0, $indexStart);
@@ -365,9 +363,15 @@ EOT;
             $this->setConfig('scale-x.label.text', $this->xAxisTitle);
             $this->setConfig('scale-y.label.text', $this->fieldNames[0]);
             $this->setConfig('scale-x.labels', $xLabels);
+            for ($i = 0; $i < count($this->fieldNames); $i++) {
+            	$this->setConfig('series['.$i.'].text', $this->fieldNames[$i]);
+            }
         }
         else {
             $this->setConfig('scale-y.label.text', $this->fieldNames[0]);
+            for ($j = 0; $j < count($this->fieldNames); $j++) {
+            	$this->setConfig('series['.$j.'].text', $this->fieldNames[$j]);
+            }
         }
     }
 
