@@ -13,12 +13,12 @@ class ZC {
     private $fieldNames = array();
     private $xAxisTitle = "";
 
-    public function __construct($id, $cType, $theme, $width, $height) {
+    public function __construct($id, $cType = 'area', $theme = 'light', $width = '100%', $height = '400') {
         $this->chartId =   $id;
-        $this->chartType = is_null($cType) ? 'area' : $cType;
-        $this->theme =     is_null($theme) ? 'light' : $theme;
-        $this->width =     is_null($width) ? '100%' : $width;
-        $this->height =    is_null($height) ? '400' : $height;
+        $this->chartType = $cType;
+        $this->theme =     $theme;
+        $this->width =     $width;
+        $this->height =    $height;
 
         // Setting the chart type, this is not a top level function like width, height, theme, and id
         $this->config['type'] = $this->chartType;
