@@ -5,16 +5,16 @@ namespace ZingChart\PHPWrapper;
 class ZC {
     private $mysqli;
 
-    private $chartId = "";
-    private $chartType;
-    private $theme;
-    private $width;
-    private $height;
-    private $fullscreen = false;
-    private $config;
-    private $data;
-    private $fieldNames = array();
-    private $xAxisTitle = "";
+    protected $chartId = "";
+    protected $chartType;
+    protected $theme;
+    protected $width;
+    protected $height;
+    protected $fullscreen = false;
+    protected $config;
+    protected $data;
+    protected $fieldNames = array();
+    protected $xAxisTitle = "";
 
     public function __construct($id, $cType = 'area', $theme = 'light', $width = '100%', $height = '400') {
         $this->chartId =   $id;
@@ -361,7 +361,7 @@ EOT;
 
 
     // ###################################### HELPER FUNCTIONS ######################################
-    private function autoAxisTitles($scaleXFlag=false, $xLabels=array()) {
+    protected function autoAxisTitles($scaleXFlag=false, $xLabels=array()) {
         if ($scaleXFlag) {
             $this->setConfig('scale-x.label.text', $this->xAxisTitle);
             $this->setConfig('scale-y.label.text', $this->fieldNames[0]);
@@ -381,7 +381,7 @@ EOT;
     /**
      * Process the array with tail recursion.
      */
-    private function buildArray($propertyChain, $value) {
+    protected function buildArray($propertyChain, $value) {
         $key = array_shift($propertyChain);
 
         // Base case, build the bottom level array
