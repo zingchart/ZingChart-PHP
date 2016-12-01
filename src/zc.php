@@ -168,7 +168,7 @@ EOT;
     }
     public function setSubtitle($subtitle) {
         $this->setConfig('subtitle.text', $subtitle);
-        if (!array_key_exists('subtitle', $this->config['adjust-layout'])) {
+        if (!array_key_exists('adjust-layout', $this->config['subtitle'])) {
             $this->setConfig('subtitle.adjust-layout', true);
         }
     }
