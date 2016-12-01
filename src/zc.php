@@ -319,8 +319,8 @@ EOT;
     public function getSeriesData() {
         $seriesValues = array();
         foreach($this->config['series'] as $key => $key_val) {
-            if ($key == 'values') {
-                $seriesValues[] = $key_val;
+            if (array_key_exists('values', $key_val)) {
+                array_push($seriesValues, $key_val['values']);
             }
         }
         return $seriesValues;
@@ -328,8 +328,8 @@ EOT;
     public function getSeriesText() {
         $seriesText = array();
         foreach($this->config['series'] as $key => $key_val) {
-            if ($key == 'text') {
-                $seriesText[] = $key_val;
+            if (isset($key_val['text'])) {
+                array_push($seriesText, $key_val['text']);
             }
         }
         return $seriesText;
