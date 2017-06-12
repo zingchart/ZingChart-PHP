@@ -11,6 +11,29 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 3. Copy file "zc.php" into your project's source directory.
 4. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`.
 5. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
+6. After the include use the proper namespace in your code: `use ZingChart\PHPWrapper\ZC;`.
+
+```php
+include 'zc.php';
+use ZingChart\PHPWrapper\ZC;
+
+$datay = array();
+$a= 6.619;
+$b= 0.113;
+$index=0;
+for($x=50; $x < 600; $x += 50, $index++) {
+array_push($datay, $a + $b*$x);
+}
+
+
+$zc = new ZC("myChart");
+$zc->setChartType("line");
+$zc->setTitle("PHP 5.6 render");
+$zc->setSeriesData(0, $datay);
+$zc->setChartHeight("400px");
+$zc->setChartWidth("100%");
+$zc->render();
+```
 
 ### Composer
 We are on Packagist [here](https://packagist.org/packages/zingchart/php_wrapper).
