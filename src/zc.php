@@ -342,7 +342,7 @@ EOT;
         $indexEnd = strpos($chain[0], "]");
 
         if ($indexStart > -1) {
-            $index = (substr($chain[0], $indexStart+1, ($indexEnd-$indexStart)+1))*1;
+            $index = (int) substr($chain[0], $indexStart+1, ($indexEnd-$indexStart)-1);
             $parentKey = substr($chain[0], 0, $indexStart);
             if (count($chain[1])) {
                 $this->config[$parentKey][$index][$chain[1]] = $val;
