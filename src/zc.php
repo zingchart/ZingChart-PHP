@@ -189,7 +189,7 @@ EOT;
   	}
   	public function setSeriesData() {
         $numArgs = func_num_args();
-        if ($numArgs == 1) {
+        if ($numArgs == 1 && is_array(func_get_arg(0))) {
             for ($j = 0; $j < count(func_get_arg(0)); $j++) {
                 $this->setConfig('series['.$j.'].values', func_get_arg(0)[$j]);
             }
@@ -203,7 +203,7 @@ EOT;
     }
     public function setSeriesText() {
         $numArgs = func_num_args();
-        if ($numArgs == 1) {
+        if ($numArgs == 1 && is_array(func_get_arg(0))) {
             for($i = 0; $i < count(func_get_arg(0)); $i++) {
                 $this->setConfig('series['.$i.'].text', func_get_arg(0)[$i]);
                 //$this->config['series'][$i]['text'] = func_get_arg(0)[$i];
@@ -344,7 +344,7 @@ EOT;
         if ($indexStart > -1) {
             $index = (int) substr($chain[0], $indexStart+1, ($indexEnd-$indexStart)-1);
             $parentKey = substr($chain[0], 0, $indexStart);
-            if (count($chain[1])) {
+            if (strlen($chain[1])) {
                 $this->config[$parentKey][$index][$chain[1]] = $val;
             }
         }
