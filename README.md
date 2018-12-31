@@ -6,12 +6,12 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 
 ### Manual
 
-1.	Download this repo by clicking on the green "Clone or download" button near the top of this page.
-2. Click on "Download Zip" option to begin the download.
-3. Copy file "zc.php" into your project's source directory.
-4. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`.
-5. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
-6. After the include use the proper namespace in your code: `use ZingChart\PHPWrapper\ZC;`.
+1. Download this repo by clicking on the green "Clone or download" button near the top of this page.
+1. Click on "Download Zip" option to begin the download.
+1. Copy file "zc.php" into your project's source directory.
+1. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`.
+1. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
+1. After the include use the proper namespace in your code: `use ZingChart\PHPWrapper\ZC;`.
 
 ```php
 include 'zc.php';
@@ -21,8 +21,8 @@ $datay = array();
 $a= 6.619;
 $b= 0.113;
 $index=0;
-for($x=50; $x < 600; $x += 50, $index++) {
-array_push($datay, $a + $b*$x);
+for ($x=50; $x < 600; $x += 50, $index++) {
+    array_push($datay, $a + $b*$x);
 }
 
 
@@ -39,8 +39,8 @@ $zc->render();
 We are on Packagist [here](https://packagist.org/packages/zingchart/php_wrapper).
 
 1. Download this package with Composer: `composer require zingchart/php_wrapper`.
-2. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendor/autoload.php;`.
-3. Reference this library in your code: `use ZingChart\PHPWrapper\ZC;`.
+1. AutoLoad your package dependencies in your project: `require __DIR__ . '/vendor/autoload.php;`.
+1. Reference this library in your code: `use ZingChart\PHPWrapper\ZC;`.
 
 
 ## Quick Start
@@ -56,15 +56,21 @@ $zc->render();
 $zc->closeConnection();
 ```
 
-**Code Breakdown:<br>**
+**Code Breakdown:**
 
-1.	`$zc = new ZC("myChart");`<br>Instantiate a new instance of the ZC object with the id of the html element you wish to embed your chart in. For example, `<div id="myChart"></div>`.
-2.	`$zc->connect($host,$port,$uname,$pswd,$db);`<br>Establish a connection to your db.
-3. `$data = $zc->query($mySqlQuery, $scaleXLabelsFlag);`<br>Query the db with a valid SQL query string and set returned value to a variable.<br>
-***Note:*** *The second argument to this function accepts a boolean that tells this function whether or not to interpret the first field returned from the SQL query should be treated as the scaleXLabels.*
-4. `$zc->setSeriesData($data[1]);`<br>Set the plot data with the data stored from your sql query, ie. $data[1] is the plot data and  $data[0] in this case holds the x-axis scale labels. This is because we set the $scaleXLabelsFlag to 'true' so our first dataset in our array will hold these labels in an array at index 0. And the plot data is stored in another array at index 1.
-5. `$zc->render();`<br>Render your data as the default 'Area' chart type. If you wish to use a different chart type then simply set it either using another function call `$zc->setChartType("bar");` or via overloading the constructor method `$zc = new ZC("myChart", "bar");`.
-6.	`$zc->closeConnection();`<br>Be sure to close your database connection once you are done using it.
+1. `$zc = new ZC("myChart");`  
+Instantiate a new instance of the ZC object with the id of the html element you wish to embed your chart in. For example, `<div id="myChart"></div>`.
+1. `$zc->connect($host,$port,$uname,$pswd,$db);`  
+Establish a connection to your db.
+1. `$data = $zc->query($mySqlQuery, $scaleXLabelsFlag);`  
+Query the db with a valid SQL query string and set returned value to a variable.  
+***Note:*** *The second argument to this function accepts a boolean that tells this function whether the first field returned from the SQL query should be treated as the scaleXLabels.*
+1. `$zc->setSeriesData($data[1]);`  
+Set the plot data with the data stored from your sql query, ie. $data[1] is the plot data and  $data[0] in this case holds the x-axis scale labels. This is because we set the $scaleXLabelsFlag to 'true' so our first dataset in our array will hold these labels in an array at index 0. And the plot data is stored in another array at index 1.
+1. `$zc->render();`  
+Render your data as the default 'Area' chart type. If you wish to use a different chart type then simply set it either using another function call `$zc->setChartType("bar");` or via overloading the constructor method `$zc = new ZC("myChart", "bar");`.
+1. `$zc->closeConnection();`  
+Be sure to close your database connection once you are done using it.
 
 ### Plotting data without a MySQL database:
 
@@ -74,77 +80,80 @@ $zc->setSeriesData([1,4,2,6,3]);
 $zc->render();
 ```
 
-**Code Breakdown:<br>**
+**Code Breakdown:**
 
-1.	`$zc = new ZC("myChart");`<br>Instantiate a new instance of the ZC object with the id of the html elemet you wish to embed your chart in. For example, `<div id="myChart"></div>`.
-2. `$zc->setSeriesData(0, [1,4,2,6,3]);`<br>Set the plot data with an array of values. You can even use an array of arrays to plot multiple series like this: `$zc->setSeriesData([[12,35,24],[3,9,7]);`
-3. `$zc->render();`<br>Render your data as the default 'Area' chart type. If you wish to use a different chart type then simply set it either using another function call `$zc->setChartType("bar");` or via overloading the constructor `$zc = new ZC("myChart", "bar");`.
+1. `$zc = new ZC("myChart");`  
+Instantiate a new instance of the ZC object with the id of the html elemet you wish to embed your chart in. For example, `<div id="myChart"></div>`.
+1. `$zc->setSeriesData(0, [1,4,2,6,3]);`  
+Set the plot data with an array of values. You can even use an array of arrays to plot multiple series like this: `$zc->setSeriesData([[12,35,24],[3,9,7]);`
+1. `$zc->render();`  
+Render your data as the default 'Area' chart type. If you wish to use a different chart type then simply set it either using another function call `$zc->setChartType("bar");` or via overloading the constructor `$zc = new ZC("myChart", "bar");`.
 
 ### Live Demos
 * [PHP Wrapper](https://examples.zingchart.com/dashboards/php-wrapper)
-	*	[or just the code](https://gist.github.com/jbogartPint/884d092e2e4037c76255ac0610afb74a)
+    * [or just the code](https://gist.github.com/jbogartPint/884d092e2e4037c76255ac0610afb74a)
 * [Dashboard](https://examples.zingchart.com/dashboards/php)
 
 
 ## Usage
 
-Constructor:<br>
-	**[ZC](#ZC)** - The constructor for ZingChart. Overloading is possible.
+Constructor:  
+**[ZC](#ZC)** - The constructor for ZingChart. Overloading is possible.
 
 There are three levels of usability for this wrapper: 
 
 * **Level 1** - Built-in functions that set and get chart data. 
 ***Limited*** *library functionality.*
 
-	**[render](#render)** - Renders the chart. This method must be called last, after you have optionally configured your chart.<br>
+	**[render](#render)** - Renders the chart. This method must be called last, after you have optionally configured your chart.  
 	
-	**[connect](#connect)** - Establishes a connection to your MySQL database.<br>
-	**[closeConnection](#closeConnection)** - Closes the connection to your MySQL database.<br>
-	**[query](#query)** - Queries your database and returns your data in the form of an array.<br>
-	**[getFieldNames](#getFieldNames")** - Get the MySQL field names returned from the function query above.<br>
+	**[connect](#connect)** - Establishes a connection to your MySQL database.  
+	**[closeConnection](#closeConnection)** - Closes the connection to your MySQL database.  
+	**[query](#query)** - Queries your database and returns your data in the form of an array.  
+	**[getFieldNames](#getFieldNames)** - Get the MySQL field names returned from the function query above.  
 	
-	**[setTitle](#setTitle)**           - Sets the chart title. Expected arg: String.<br>
-	**[setSubtitle](#setSubtitle)**        - Sets the chart subtitle. Expected arg: String.<br> 
-	**[setLegendTitle](#setLegendTitle)**     - Sets the chart legend's title. Expected arg: String.<br>
-	**[setScaleXTitle](#setScaleXTitle)**     - Sets the chart x-axis title.<br>
-	**[setScaleYTitle](#setScaleYTitle)**     - Sets the chart y-axis title.<br>
-	**[setScaleXLabels](#setScaleXLabels)**    - Sets the chart x-axis' scale values.<br>
-	**[setScaleYLabels](#setScaleYLabels)**    - Sets the chart y-axis' scale values.<br>
-	**[setSeriesData](#setSeriesData)**      - Sets the chart plot data. ie) The data to be plotted.<br>
-	**[setSeriesText](#setSeriesText)**      - Sets the chart data labels. ie) Used for tooltips, valueBox, etc..<br>
+	**[setTitle](#setTitle)**           - Sets the chart title. Expected arg: String.  
+	**[setSubtitle](#setSubtitle)**        - Sets the chart subtitle. Expected arg: String.  
+	**[setLegendTitle](#setLegendTitle)**     - Sets the chart legend's title. Expected arg: String.  
+	**[setScaleXTitle](#setScaleXTitle)**     - Sets the chart x-axis title.  
+	**[setScaleYTitle](#setScaleYTitle)**     - Sets the chart y-axis title.  
+	**[setScaleXLabels](#setScaleXLabels)**    - Sets the chart x-axis' scale values.  
+	**[setScaleYLabels](#setScaleYLabels)**    - Sets the chart y-axis' scale values.  
+	**[setSeriesData](#setSeriesData)**      - Sets the chart plot data. ie) The data to be plotted.  
+	**[setSeriesText](#setSeriesText)**      - Sets the chart data labels. ie) Used for tooltips, valueBox, etc..  
 	
-	**[setChartType](#setChartType)**       - Sets the chart type. ie) Area, Bar, Line, Pie, etc..<br>
-	**[setChartWidth](#setChartWidth)**      - Sets the chart width. ***Note:*** *Defaults to 100%.*<br>
-	**[setChartHeight](#setChartHeight)**     - Sets the chart height. ***Note:*** *Defaults to 400px.*<br>
-	**[setChartTheme](#setChartTheme)**      - Sets the chart color theme. ie) light, dark, classic.<br>
-	**[setFullscreen](#setFullscreen)**	    - Sets the chart's width and height to fit the window.<br>
+	**[setChartType](#setChartType)**       - Sets the chart type. ie) Area, Bar, Line, Pie, etc..  
+	**[setChartWidth](#setChartWidth)**      - Sets the chart width. ***Note:*** *Defaults to 100%.*  
+	**[setChartHeight](#setChartHeight)**     - Sets the chart height. ***Note:*** *Defaults to 400px.*  
+	**[setChartTheme](#setChartTheme)**      - Sets the chart color theme. ie) light, dark, classic.  
+	**[setFullscreen](#setFullscreen)**	    - Sets the chart's width and height to fit the window.  
 	
-	**[enableScaleXZooming](#enableScaleXZooming)**  - Turn on chart zooming on x-axis.<br>
-	**[enableScaleYZooming](#enableScaleYZooming)**  - Turn on chart zooming on y-axis.<br>
-	**[enableCrosshairX](#enableCrosshairX)**     - Turn on chart crosshair guide on x-axis. ***NOTE:*** *On by default.*<br>
-	**[enableCrosshairY](#enableCrosshairY)**     - Turn on chart crosshair guide on y-axis.<br>
-	**[enableTooltip](#enableTooltip)**        - Turn on chart tooltip.<br>
-	**[enableValueBox](#enableValueBox)**       - Turn on chart valueBox.<br>
-	**[enablePreview](#enablePreview)**        - Turn on chart preview area.<br>
+	**[enableScaleXZooming](#enableScaleXZooming)**  - Turn on chart zooming on x-axis.  
+	**[enableScaleYZooming](#enableScaleYZooming)**  - Turn on chart zooming on y-axis.  
+	**[enableCrosshairX](#enableCrosshairX)**     - Turn on chart crosshair guide on x-axis. ***NOTE:*** *On by default.*  
+	**[enableCrosshairY](#enableCrosshairY)**     - Turn on chart crosshair guide on y-axis.  
+	**[enableTooltip](#enableTooltip)**        - Turn on chart tooltip.  
+	**[enableValueBox](#enableValueBox)**       - Turn on chart valueBox.  
+	**[enablePreview](#enablePreview)**        - Turn on chart preview area.  
 
-	**[disableScaleXZooming](#disableScaleXZooming)** - Turn off chart zooming on x-axis.<br>
-	**[disableScaleYZooming](#disableScaleYZooming)** - Turn off chart zooming on y-axis.<br>
-	**[disableCrosshairX](#disableCrosshairX)**    - Turn off chart crosshair on x-axis.<br>
-	**[disableCrosshairY](#disableCrosshairY)**    - Turn off chart crosshair on y-axis.<br>
-	**[disableTooltip](#disableTooltip)**       - Turn off chart tooltip.<br>
-	**[disableValueBox](#disableValueBox)**      - Turn off chart valueBox.<br>
-	**[disablePreview](#disablePreview)**       - Turn off chart preview area.<br>
+	**[disableScaleXZooming](#disableScaleXZooming)** - Turn off chart zooming on x-axis.  
+	**[disableScaleYZooming](#disableScaleYZooming)** - Turn off chart zooming on y-axis.  
+	**[disableCrosshairX](#disableCrosshairX)**    - Turn off chart crosshair on x-axis.  
+	**[disableCrosshairY](#disableCrosshairY)**    - Turn off chart crosshair on y-axis.  
+	**[disableTooltip](#disableTooltip)**       - Turn off chart tooltip.  
+	**[disableValueBox](#disableValueBox)**      - Turn off chart valueBox.  
+	**[disablePreview](#disablePreview)**       - Turn off chart preview area.  
 	
-	**[getTitle](#getTitle)**             - Get the chart title.<br>
-	**[getSubtitle](#getSubtitle)**          - Get the chart subtitle.<br>
-	**[getLegendTitle](#getLegendTitle)**       - Get the chart legend title.<br>
-	**[getConfig](#getConfig)**            - Get the chart JSON configuration.<br>
-	**[getScaleXTitle](#getScaleXTitle)**       - Get the chart x-axis title.<br>
-	**[getScaleYTitle](#getScaleYTitle)**       - Get the chart y-axis title.<br>
-	**[getScaleXLabels](#getScaleXLabels)**      - Get the chart x-axis scale values.<br>
-	**[getScaleYLabels](#getScaleYLabels)**      - Get the cahrt y-axis scale values.<br>
-	**[getSeriesData](#getSeriesData)**        - Get the chart plot data/values.<br>
-	**[getSeriesText](#getSeriesText)**        - Get the chart plot data labels/texts.<br>
+	**[getTitle](#getTitle)**             - Get the chart title.  
+	**[getSubtitle](#getSubtitle)**          - Get the chart subtitle.  
+	**[getLegendTitle](#getLegendTitle)**       - Get the chart legend title.  
+	**[getConfig](#getConfig)**            - Get the chart JSON configuration.  
+	**[getScaleXTitle](#getScaleXTitle)**       - Get the chart x-axis title.  
+	**[getScaleYTitle](#getScaleYTitle)**       - Get the chart y-axis title.  
+	**[getScaleXLabels](#getScaleXLabels)**      - Get the chart x-axis scale values.  
+	**[getScaleYLabels](#getScaleYLabels)**      - Get the cahrt y-axis scale values.  
+	**[getSeriesData](#getSeriesData)**        - Get the chart plot data/values.  
+	**[getSeriesText](#getSeriesText)**        - Get the chart plot data labels/texts.  
 
 * **Level 2** - Using dot syntax to set more in-depth chart data. ***No limitation*** *on original library functionality.*
 
