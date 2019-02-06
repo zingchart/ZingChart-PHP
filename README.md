@@ -8,23 +8,22 @@ The purpose of this wrapper is to enable PHP users to quickly and easily create 
 
 1. Download this repo by clicking on the green "Clone or download" button near the top of this page.
 1. Click on "Download Zip" option to begin the download.
-1. Copy file "zc.php" into your project's source directory.
+1. Copy file "ZC.php" into your project's source directory.
 1. Include the ZingChart library in your project `<script src="//cdn.zingchart.com/zingchart.min.js"></script>`.
-1. Include this wrapper in your project using the 'include' syntax. ie) `include zc.php`.
+1. Include this wrapper in your project using the 'include' syntax. ie) `include ZC.php`.
 1. After the include use the proper namespace in your code: `use ZingChart\PHPWrapper\ZC;`.
 
 ```php
-include 'zc.php';
+include 'ZC.php';
 use ZingChart\PHPWrapper\ZC;
 
 $datay = array();
-$a= 6.619;
-$b= 0.113;
-$index=0;
-for ($x=50; $x < 600; $x += 50, $index++) {
+$a = 6.619;
+$b = 0.113;
+$index = 0;
+for ($x = 50; $x < 600; $x += 50, $index++) {
     array_push($datay, $a + $b*$x);
 }
-
 
 $zc = new ZC("myChart");
 $zc->setChartType("line");
@@ -188,7 +187,7 @@ $zc = new ZC("chartDiv", "bar", null, 600, 400);
 ---
 <a id="render"></a>
 ### render ( ) `Level 1`
-Renders the chart to the html element specified from the constructor.<br>
+Renders the chart to the html element specified from the constructor.
 
 **Example:**
 
@@ -365,8 +364,8 @@ There are two ways to overload this function.
 **Examples:**
 
 ```php
-$zc->setSeriesText(["BLT","Tuna","Club"]);// applies "BLT" to series[0], "Tuna" to series[1],..
-$zc->setSeriesText(0, "BLT");// applies "BLT" to series[0]
+$zc->setSeriesText(["BLT","Tuna","Club"]); // applies "BLT" to series[0], "Tuna" to series[1],..
+$zc->setSeriesText(0, "BLT");              // applies "BLT" to series[0]
 ```
 
 ---
@@ -388,7 +387,7 @@ Sets the chart width. ***Note:*** *Defaults to 100%.*
 **Examples:**
 
 ```php
-$zc->setChartWidth("600");// in pixels
+$zc->setChartWidth("600"); // in pixels
 $zc->setChartWidth("100%");
 ```
 
@@ -400,7 +399,7 @@ Sets the chart height. ***Note:*** *Defaults to 400px.*
 **Examples:**
 
 ```php
-$zc->setChartHeight("400");
+$zc->setChartHeight("400"); // in pixels
 $zc->setChartHeight("50%");
 ```
 
@@ -696,7 +695,7 @@ $plotSeriesText = $zc->getSeriesText();
 ---
 <a id="setConfig"></a>
 ### setConfig ( ) `Level 2`
-This is a single function that accepts a string in the form of dot-syntax. This function allows you to set a value for a single chart property.<br>
+This is a single function that accepts a string in the form of dot-syntax. This function allows you to set a value for a single chart property.
 
 **Examples:**
 
@@ -708,8 +707,7 @@ $zc->setConfig("series[1].values", array(5,9,13,10,22,39));
 You may also pass in an associative array to set multiple attributes from the given root property like this:
 
 ```php
-$legendConfig = 
-array(
+$legendConfig = array(
     "header" => array(
         "background-color" => "red"
     ),
@@ -731,7 +729,7 @@ This syntax is a close-derivative of ZingChart's JSON syntax except that it uses
 This is a single function that accepts a full-blown JSON string. This function allows you to set the entire chart's configuration with a single function call. This JSON string can be generated using standard PHP associative array syntax as well.
 
 ### Note: Using the trapdoor will overwrite any previously set chart configurations for that object.
-For example, if you set $zc->setLegendTitle("Cool Title") and later use zc->trapdoor("series":[{"values": [1,2,3]}, {"values":[22,23,27]}) then the legend title will be destroyed.
+For example, if you set `$zc->setLegendTitle("Cool Title")` and later use `$zc->trapdoor("series":[{"values": [1,2,3]}, {"values":[22,23,27]})` then the legend title will be destroyed.
 
 **Examples:**
 
@@ -791,13 +789,13 @@ $zc->trapdoor($jsonString);
 ```
 One thing to note here is that if you are using the array method, then you must prepend your array with `json_encode(...)` in order to render the chart properly when you call the render method.
 
-Finished product:<br>
-The following four lines of code will produce an area chart that is 600x400 pixels with the light color theme rendered in the html element's id of 'myChart'.
+Finished product:  
+The following three lines of code will produce an area chart that is 600x400 pixels with the light color theme rendered in the html element's id of 'myChart'.
 
 ```php
 $zc = new ZC("myChart", "area", "light", 600, 400);
-$zc.trapdoor(json_encode($myConfig));
-$zc.render();
+$zc->trapdoor(json_encode($myConfig));
+$zc->render();
 ```
 
 ## More Documentation
@@ -810,8 +808,8 @@ You may visit our [JSON Attributes](https://www.zingchart.com/docs/json-attribut
 
 ## Issues, Contributions, or Requests
 
-Feature(s) missing? Something broken? 
-Post your questions, comments, and issues right here in this GitHub repository. We welcome any input you may have and will happily respond promptly. And feel free to fork this repo to append any additional features you like.<br><br>
+Feature(s) missing? Something broken?   
+Post your questions, comments, and issues right here in this GitHub repository. We welcome any input you may have and will happily respond promptly. And feel free to fork this repo to append any additional features you like.
 
-Thank you for reading this tutorial.<br>
+Thank you for reading this tutorial.  
 Happy PHP Charting with ZingChart
